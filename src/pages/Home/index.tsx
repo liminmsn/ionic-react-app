@@ -9,7 +9,7 @@ const Home: React.FC = () => {
                 <IonToolbar>
                     <div className='flex px-2'>
                         <IonImg className='h-8' src='/favicon.png' />
-                        <IonTitle className='!px-2'>{import.meta.env['VITE_NAME']}</IonTitle>
+                        <IonTitle className='!px-2 font_dingliexida'>{import.meta.env['VITE_NAME']}</IonTitle>
                     </div>
                 </IonToolbar>
             </IonHeader>
