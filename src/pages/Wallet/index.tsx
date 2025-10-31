@@ -1,22 +1,15 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
+import { IonCard, IonContent, IonLabel, IonPage } from '@ionic/react';
 import './index.css'
 
 const Wallet: React.FC = () => {
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Tab 1</IonTitle>
-                </IonToolbar>
-            </IonHeader>
             <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Tab 1</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <ExploreContainer name="Tab 1 page" />
+                <IonCard className='p-4'>
+                    <IonLabel color={'danger'}>
+                        订阅到期：{new Date().toUTCString()}
+                    </IonLabel>
+                </IonCard>
             </IonContent>
         </IonPage>
     );
