@@ -1,8 +1,14 @@
-import { IonContent, IonHeader, IonImg, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
-import './index.css'
+import { IonCard, IonContent, IonHeader, IonImg, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import './index.css';
+import { useEffect, useState } from 'react';
+import { home_list, HomeList } from '../../net/api/home';
 
 const Home: React.FC = () => {
+    const [list, setList] = useState<HomeList>([]);
+
+    useEffect(() => {
+        home_list().then(setList);
+    }, [])
     return (
         <IonPage>
             <IonHeader>
@@ -14,12 +20,22 @@ const Home: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Tab 1</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <ExploreContainer name="Tab 1 page" />
+                {list.map(item => {
+                    return <div className='p-2' key={item.title}>
+                        <h6 className='my-0 mb-2' style={{ color: 'var(--ion-color-primary)' }}>{item.title}</h6>
+                        <div className='grid grid-cols-3 gap-2'>
+                            {item.list.map(item_card =>
+                                <div className='' key={item_card.href}>
+                                    <IonCard className='m-0' style={{ background: 'var(--ion-color-primary)' }}>
+                                        <IonImg className='w-full' src={item_card.img!} />
+                                    </IonCard>
+                                    <div className='my3 mb1 text-3 text-ellipsis text-nowrap overflow-hidden font-bold'>{item_card.label}</div>
+                                    <div className='text-2 font-300'>{item_card.desc}</div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                })}
             </IonContent>
         </IonPage>
     );

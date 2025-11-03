@@ -54,7 +54,7 @@ export default function App() {
             </Route>
           })}
           <Route exact path="/">
-            <Redirect to="/Home" />
+            <Redirect to={page_router[0].page.name} />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
