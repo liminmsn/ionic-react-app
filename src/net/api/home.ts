@@ -10,7 +10,9 @@ export type HomeList = {
 }[];
 /**返回首页列表 */
 export async function home_list(): Promise<HomeList> {
-    const res = await new NetBase('/').get(undefined).send();
+    console.log('yzt_req_网络请求',);
+    const res = await new NetBase('/').get(undefined);
+    console.log('yzt', res);
     if (res.status == 200) {
         const dom = new DOMParser().parseFromString(res.data, 'text/html');
         const dom_list = dom.getElementById('index-main')!.getElementsByClassName('module-bg');

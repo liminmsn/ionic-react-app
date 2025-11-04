@@ -30,7 +30,7 @@ const Home: React.FC = () => {
                                         <IonImg className='w-full' src={item_card.img!} />
                                     </IonCard>
                                     <div className='my3 mb1 text-3 text-ellipsis text-nowrap overflow-hidden font-bold'>{item_card.label}</div>
-                                    <div className='text-2 font-300'>{item_card.desc}</div>
+                                    <div className='text-3 font-300'>{item_card.desc}</div>
                                 </div>
                             )}
                         </div>
