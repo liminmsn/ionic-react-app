@@ -69,6 +69,7 @@ http://ionicframework.com/docs/theming/ */
     font-family: 'dlxt';
     src: url('/font/dingliezhuhaifont-20240831GengXinBan.ttf') format('truetype');
 }
-.font_dingliexida {
+
+.font_dlxt {
     font-family: 'dlxt' !important;
 }
