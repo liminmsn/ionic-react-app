@@ -31,15 +31,15 @@ const Home: React.FC = () => {
                 <JLTopBarHeight />
                 <JLFetchData<HomeList> fetch={home_list} state={[list, setList]}>
                     {list && list.map(item => {
-                        return <div className='p-2' key={item.title}>
-                            <h5 className='my-0 mb-2 font_dlxt' style={{ color: 'var(--ion-color-primary)' }}>{item.title}</h5>
+                        return <div className='p-2 pt-0' key={item.title}>
+                            <p className='p-0 m-0 mb-4 text-8 line-height-none font_mbz' style={{ color: 'var(--ion-color-primary)' }}>{item.title}</p>
                             <div className='grid grid-cols-3 gap-2'>
                                 {item.list.map(item_card =>
                                     <div className='' key={item_card.href} onClick={() => goToDetail(item_card)}>
                                         <IonCard className='m-0' style={{ background: 'var(--ion-color-primary)' }}>
                                             <IonImg className='w-full' src={item_card.img!} />
                                         </IonCard>
-                                        <div className='my3 mb1 text-3 text-ellipsis text-nowrap overflow-hidden font-bold'>{item_card.label}</div>
+                                        <div className='my3 mb1 text-ellipsis text-nowrap overflow-hidden font-bold'>{item_card.label}</div>
                                         <div className='text-3 font-300'>{item_card.desc}</div>
                                     </div>
                                 )}
