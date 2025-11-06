@@ -54,9 +54,6 @@ export default function App() {
               <item.page />
             </Route>
           })}
-          <Route path='/detail'>
-            <JLDetail />
-          </Route>
           <Route exact path="/">
             <Redirect to={page_router[0].page.name} />
           </Route>
@@ -70,6 +67,9 @@ export default function App() {
           })}
         </IonTabBar>
       </IonTabs>
+      <Route path='/detail'>
+        <JLDetail />
+      </Route>
     </IonReactRouter>
   </IonApp>
 }
