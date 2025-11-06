@@ -47,6 +47,11 @@ setupIonicReact();
 export default function App() {
   return <IonApp>
     <IonReactRouter>
+      <IonRouterOutlet>
+        <Route path='/detail'>
+          <JLDetail />
+        </Route>
+      </IonRouterOutlet>
       <IonTabs>
         <IonRouterOutlet>
           {page_router.map(item => {
@@ -67,9 +72,7 @@ export default function App() {
           })}
         </IonTabBar>
       </IonTabs>
-      <Route path='/detail'>
-        <JLDetail />
-      </Route>
     </IonReactRouter>
+
   </IonApp>
 }
