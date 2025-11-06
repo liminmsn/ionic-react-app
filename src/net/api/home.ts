@@ -1,13 +1,14 @@
 import { NetBase } from "../NetBase";
 export type HomeList = {
     title: string;
-    list: {
-        img: string | null;
-        href: string | null;
-        label: string;
-        desc: string;
-    }[];
+    list: HomeListItem[];
 }[];
+export type HomeListItem = {
+    img: string | null;
+    href: string | null;
+    label: string;
+    desc: string;
+};
 /**返回首页列表 */
 export async function home_list(): Promise<HomeList> {
     console.log('yzt_req_网络请求',);

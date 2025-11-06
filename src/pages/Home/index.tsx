@@ -1,7 +1,7 @@
-import { IonCard, IonContent, IonImg, IonPage } from '@ionic/react';
+import { IonCard, IonContent, IonImg, IonPage, NavContext } from '@ionic/react';
 import './index.css';
-import { useEffect, useState } from 'react';
-import { home_list, HomeList } from '@/net/api/home';
+import { useContext, useEffect, useState } from 'react';
+import { home_list, HomeList, HomeListItem } from '@/net/api/home';
 import JLFetchData from '@/components/JLFetchData';
 import JLTopBarHeight from '@/components/JL_TopBarHeight';
 
@@ -11,6 +11,18 @@ const Home: React.FC = () => {
     useEffect(() => {
         console.log(list);
     }, [])
+
+    const nav = useContext(NavContext); // 获取全局导航实例
+    // 跳转详情页逻辑
+    const goToDetail = (item: HomeListItem) => {
+        nav.navigate(
+            '/detail',
+            'forward',
+            'push',
+            undefined,
+            { item }
+        );
+    };
     return (
         <IonPage>
             <IonContent fullscreen onScroll={(e) => {
@@ -23,7 +35,7 @@ const Home: React.FC = () => {
                             <h5 className='my-0 mb-2 font_dlxt' style={{ color: 'var(--ion-color-primary)' }}>{item.title}</h5>
                             <div className='grid grid-cols-3 gap-2'>
                                 {item.list.map(item_card =>
-                                    <div className='' key={item_card.href}>
+                                    <div className='' key={item_card.href} onClick={() => goToDetail(item_card)}>
                                         <IonCard className='m-0' style={{ background: 'var(--ion-color-primary)' }}>
                                             <IonImg className='w-full' src={item_card.img!} />
                                         </IonCard>
