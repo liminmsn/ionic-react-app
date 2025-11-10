@@ -3,11 +3,16 @@ import { IonContent, IonPage, IonImg, useIonRouter, IonCard, IonButton, IonIcon,
 import { useEffect, useState } from 'react';
 import type { HomeListItem } from '@/net/api/home';
 import JLTopBarHeight from '@/components/JL_TopBarHeight';
-import { bookmarkOutline, bookOutline } from 'ionicons/icons';
+import { bookmarkOutline, bookOutline, caretDownCircleOutline, caretUpCircleOutline } from 'ionicons/icons';
+import JLFetchData from '@/components/JLFetchData';
+import { detail_list, DetailType } from '@/net/api/detail';
 
 const JLDetail: React.FC = () => {
     const [detailData, setDetailData] = useState<HomeListItem | null>({ desc: '', href: '', img: '', label: '' });
     const { routeInfo } = useIonRouter(); // 获取路由信息（包含参数）
+
+    const [detail, setDetail] = useState<DetailType>();
+    const [detail_size, setDetailSize] = useState(false);
 
     useEffect(() => {
         setDetailData(routeInfo.routeOptions['item'])
@@ -35,6 +40,24 @@ const JLDetail: React.FC = () => {
                             </IonButton>
                         </div>
                     </div>
+                </div>
+                <div className={detail_size ? 'overflow-y-auto h4/10' : ''} style={{ position: 'relative' }}>
+                    {
+                        detailData &&
+                        detailData.href &&
+                        <JLFetchData<DetailType> fetch={() => detail_list(detailData)} state={[detail, setDetail]}>
+                            <div className='w-full p-2 pt-0 grid grid-cols-3 gap-1'>
+                                {detail?.module_0?.arr.map(item => {
+                                    return <IonCard className='!m-0 p-1' key={item.href}>
+                                        <span className='text-3 font-black'>{item.label}</span>
+                                    </IonCard>
+                                })}
+                            </div>
+                            <div className='w-full pos-sticky pos-bottom-0 text-center' onClick={() => setDetailSize(!detail_size)}>
+                                <IonIcon color={'primary'} size={'large'} icon={detail_size ? caretDownCircleOutline : caretUpCircleOutline} />
+                            </div>
+                        </JLFetchData>
+                    }
                 </div>
             </IonContent>
         </IonPage>
