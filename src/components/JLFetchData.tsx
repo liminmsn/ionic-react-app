@@ -3,15 +3,17 @@ import JLLoding from "./JL_Loding";
 
 type JLFetchDataType<T> = {
     fetch: () => Promise<T>;
+    end?: () => void;
     state: [T | undefined, Dispatch<SetStateAction<T | undefined>>];
     children: React.ReactNode
 };
-function JLFetchData<T>({ fetch, state, children }: JLFetchDataType<T>) {
+function JLFetchData<T>({ end, fetch, state, children }: JLFetchDataType<T>) {
     useEffect(() => {
         (async function () {
             const res = await fetch();
             setTimeout(() => {
                 state[1](res);
+                if (end) end();
             }, 1000);
         })()
     }, [])

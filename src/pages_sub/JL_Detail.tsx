@@ -15,8 +15,9 @@ const JLDetail: React.FC = () => {
     const [detail_size, setDetailSize] = useState(false);
 
     useEffect(() => {
+        setDetailSize(false);
         setDetailData(routeInfo.routeOptions['item'])
-    }, [detailData]);
+    }, [routeInfo]);
 
     return (
         <IonPage>
@@ -28,7 +29,7 @@ const JLDetail: React.FC = () => {
                     </IonCard>
                     <div className='w-full pt-2 pr-2 box-border'>
                         <p className='m-0 mb-2 text-6 font_mbz' style={{ color: 'var(--ion-color-primary)' }}>{detailData?.label}</p>
-                        <IonLabel className='line-height-none font-300'>{detailData?.desc}</IonLabel>
+                        <IonLabel color={'medium'} className='line-height-none font-300'>{detailData?.desc}</IonLabel>
                         <div className='mt-4'>
                             <IonButton size="small" color={'secondary'}>
                                 <IonIcon icon={bookOutline} />
@@ -41,24 +42,46 @@ const JLDetail: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className={detail_size ? 'overflow-y-auto h4/10' : ''} style={{ position: 'relative' }}>
-                    {
-                        detailData &&
-                        detailData.href &&
-                        <JLFetchData<DetailType> fetch={() => detail_list(detailData)} state={[detail, setDetail]}>
+                {
+                    detailData &&
+                    detailData.href &&
+                    <JLFetchData<DetailType> fetch={() => detail_list(detailData)} state={[detail, setDetail]} end={() => setDetailSize(true)}>
+                        <div className={detail_size ? 'overflow-y-auto max-h4/10' : ''} style={{ position: 'relative' }}>
                             <div className='w-full p-2 pt-0 grid grid-cols-3 gap-1'>
                                 {detail?.module_0?.arr.map(item => {
                                     return <IonCard className='!m-0 p-1' key={item.href}>
-                                        <span className='text-3 font-black'>{item.label}</span>
+                                        <IonLabel color={'medium'}>
+                                            <span className='text-3'>{item.label}</span>
+                                        </IonLabel>
                                     </IonCard>
                                 })}
                             </div>
                             <div className='w-full pos-sticky pos-bottom-0 text-center' onClick={() => setDetailSize(!detail_size)}>
                                 <IonIcon color={'primary'} size={'large'} icon={detail_size ? caretDownCircleOutline : caretUpCircleOutline} />
                             </div>
-                        </JLFetchData>
-                    }
-                </div>
+                        </div>
+                        <p className='m-0 px-2 text-6 font_mbz' style={{ color: 'var(--ion-color-primary)' }}>{detail?.module_1?.title}</p>
+                        <div className='overflow-x-auto'>
+                            <div className='flex pb-4'>
+                                {
+                                    detail?.module_1?.arr.map(item => {
+                                        return <div key={item.img}>
+                                            <IonCard className='min-w-30'>
+                                                <IonImg class='' src={item.img} />
+                                            </IonCard>
+                                            <IonLabel color={'primary'}>
+                                                <span>{item.label}</span>
+                                            </IonLabel>
+                                            <IonLabel color={'medium'}>
+                                                <div className='text-3'>{item.desc}</div>
+                                            </IonLabel>
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </JLFetchData>
+                }
             </IonContent>
         </IonPage>
     );
