@@ -40,8 +40,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import page_router, { getRouterUrl } from './router';
-import JLDetail from './pages_sub/JL_Detail';
+import page_router, { getRouterUrl, page_sub_router } from './router';
 
 setupIonicReact();
 export default function App() {
@@ -67,9 +66,13 @@ export default function App() {
           })}
         </IonTabBar>
       </IonTabs>
-      <Route path='/detail'>
-        <JLDetail />
-      </Route>
+      {
+        page_sub_router.map(item => {
+          return <Route path={item.path} key={item.path}>
+            <item.page />
+          </Route>
+        })
+      }
     </IonReactRouter>
   </IonApp>
 }

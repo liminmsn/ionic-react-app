@@ -40,14 +40,13 @@ export type DetailType = {
 }
 /**返回首页列表 */
 export async function detail_list(item: HomeListItem | null): Promise<DetailType> {
-    console.log('yzt_req_网络请求', item);
+    // console.log('yzt_req_网络请求', item);
     if (item?.href != null) {
         const res = await new NetBase(item.href).get(undefined);
         if (res.status == 200) {
             const dom = new DOMParser().parseFromString(res.data, 'text/html');
             const info_dom = dom.getElementsByClassName('video-info')[0];
             const modules = dom.getElementsByClassName('module');
-            console.log(modules[1].children[1].children);
             return {
                 err: {
                     code: 0,
@@ -85,7 +84,7 @@ export async function detail_list(item: HomeListItem | null): Promise<DetailType
                         return {
                             img: item.children[0].getElementsByTagName('img')[0].getAttribute('data-original') || '',
                             label: item.children[1].textContent || '',
-                            href: item.children[1].getAttribute('href') || '',
+                            href: item.children[0].children[0].getAttribute('href') || '',
                             desc: item.children[2].textContent
                         }
                     })

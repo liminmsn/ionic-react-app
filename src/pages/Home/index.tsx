@@ -1,28 +1,15 @@
 import { IonCard, IonContent, IonImg, IonPage, NavContext } from '@ionic/react';
 import './index.css';
 import { useContext, useEffect, useState } from 'react';
-import { home_list, HomeList, HomeListItem } from '@/net/api/home';
+import { home_list, HomeList } from '@/net/api/home';
 import JLFetchData from '@/components/JLFetchData';
 import JLTopBarHeight from '@/components/JL_TopBarHeight';
+import { goTo } from '@/router';
 
 const Home: React.FC = () => {
     const [list, setList] = useState<HomeList | undefined>()
-
-    useEffect(() => {
-        console.log(list);
-    }, [])
-
-    const nav = useContext(NavContext); // 获取全局导航实例
-    // 跳转详情页逻辑
-    const goToDetail = (item: HomeListItem) => {
-        nav.navigate(
-            '/detail',
-            'forward',
-            'push',
-            undefined,
-            { item }
-        );
-    };
+    const nav = useContext(NavContext);
+    
     return (
         <IonPage>
             <IonContent fullscreen onScroll={(e) => {
@@ -35,7 +22,7 @@ const Home: React.FC = () => {
                             <p className='p-0 m-0 mb-4 text-8 line-height-none font_mbz' style={{ color: 'var(--ion-color-primary)' }}>{item.title}</p>
                             <div className='grid grid-cols-3 gap-2'>
                                 {item.list.map(item_card =>
-                                    <div className='' key={item_card.href} onClick={() => goToDetail(item_card)}>
+                                    <div className='' key={item_card.href} onClick={() => goTo(nav, '/detail', item_card)}>
                                         <IonCard className='m-0' style={{ background: 'var(--ion-color-primary)' }}>
                                             <IonImg className='w-full' src={item_card.img!} />
                                         </IonCard>

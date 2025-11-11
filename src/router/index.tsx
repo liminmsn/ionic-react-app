@@ -3,6 +3,8 @@ import Home from "../pages/Home";
 import Grid from "../pages/Grid";
 import Time from "../pages/Time";
 import Wallet from "../pages/Wallet";
+import { NavContextState } from "@ionic/react";
+import JLDetail from "@/pages_sub/JL_Detail";
 
 type PageRouterItem = {
     label: string;
@@ -33,7 +35,25 @@ const page_router: PageRouter = [
     }
 ]
 
+const page_sub_router: { path: string, page: React.FC }[] = [
+    {
+        path: '/detail*',
+        page: JLDetail
+    }
+]
+
+// 跳转详情页逻辑
+export const goTo = (nav: NavContextState, path: string, item: object) => {
+    nav.navigate(
+        path.concat(`?time=${Date.now()}`),
+        'forward',
+        'push',
+        undefined,
+        { item }
+    );
+};
 export function getRouterUrl(page: React.FC): string {
     return String('/').concat(page.name)
 }
+export { page_sub_router }
 export default page_router;
